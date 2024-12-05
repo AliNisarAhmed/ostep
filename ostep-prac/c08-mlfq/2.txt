@@ -1,0 +1,32 @@
+Q: 2:
+
+Figure 8.3 (a) => `./mlfq -j 2 -n 3 -l 0,200,0:100,20,0 -a 1 -c`
+Figure 8.3 (b) => `/.mlfq -j 2 -n 3 -l 0,200,0:100,20,5 -a -S -i 1 -c`
+
+Figure 8.4 (a) => `./mlfq -j 3 -n 3 -l 0,500,0:100,100,10:100,100:10 -a 2 -i 5 -S -c`
+Figure 8.4 (a) => `./mlfq -j 3 -n 3 -l 0,500,0:100,100,10:100,100:10 -a 2 -i 5 -S -B 100 -I -c`
+
+Figure 8.5 (a) => `./mlfq -j 2 -n 3 -l 0,500,0:100,100,15 -S -i 5 -I -c`
+Figure 8.5 (a) => `./mlfq -j 2 -n 3 -l 0,500,0:100,100,15 -a 1 -S -i 5 -I -c`
+
+
+Q.3:
+
+time slice of each queue should be <= (length of max job / number of jobs)
+
+e.g
+
+`./mlfq -j 3 -n 2 -l 0,90,0:0,180,0:0,180,0 -Q 60,60,60 -a 5 -c`
+
+
+
+Q.4:
+
+Set up two jobs 1. is long running CPU only, other is short with very small multiple IO bursts, the -S and -I option help here
+
+`./mlfq.py -j 2 -n 3 -l 0,1000,0:100,200,10 -i 1 -S -I -a 5 -c`
+
+
+Q.5:
+
+If a new 10ms job arrives every 10ms, boosting every 200ms ticks ensures the long process will run 10/200 CPU ticket = 5%
